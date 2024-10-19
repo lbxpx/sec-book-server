@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.PackageBookMapper">
+    <insert id="insertBatch" parameterType="list">
+        insert into package_books
+        (package_id, book_id, price, name) VALUES
+        <foreach collection="packageBooks" item="pb" separator=",">
+            (#{pb.packageId},#{pb.bookId},#{pb.price},#{pb.name})
+        </foreach>
+    </insert>
+
+    <delete id="deleteByPackagesIds">
+        delete from package_books where id in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <select id="getPackageIdsByBookIds" resultType="java.lang.Long">
+        select * from package_books where book_id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+</mapper>

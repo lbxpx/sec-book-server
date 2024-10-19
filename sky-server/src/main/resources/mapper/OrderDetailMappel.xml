@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.OrderDetailMapper">
+    <delete id="deleteBatch">
+        delete from order_detail
+        where order_id in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <select id="countByPackage" resultType="com.sky.result.PieChartResult">
+        select name,amount as value
+        from order_detail
+        where package_id is not null
+        order by amount
+    </select>
+</mapper>

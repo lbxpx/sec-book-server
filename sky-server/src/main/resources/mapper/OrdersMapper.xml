@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.OrdersMapper">
+    <delete id="deleteBatch">
+        delete from orders
+        where order_id in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <select id="pageQuery" resultType="com.sky.vo.OrderVO">
+        select *
+        from orders
+        <where>
+            <if test="name != null">
+                and (buyer LIKE CONCAT('%', #{name}, '%')
+                     OR
+                seller LIKE CONCAT('%', #{name}, '%'))
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="orderId != null">
+                and order_id = #{orderId}
+            </if>
+        </where>
+        order by created_at desc
+    </select>
+</mapper>

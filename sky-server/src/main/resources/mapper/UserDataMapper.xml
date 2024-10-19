@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.UserDataMapper">
+
+    <update id="update">
+        update userData
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="university != null">university = #{university},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="introduction != null">introduction = #{introduction},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="birth != null">birth = #{birth},</if>
+            <if test="sex != null">sex = #{sex},</if>
+        </set>
+        where user_id = #{userId}
+    </update>
+    <delete id="deleteByUserIds">
+        delete from userData where userData.user_id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

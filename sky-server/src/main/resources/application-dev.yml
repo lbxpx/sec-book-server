@@ -1,0 +1,17 @@
+sky:
+  datasource:
+    driver-class-name: 
+    host: 
+    port: 
+    database: 
+    username:  
+    password: 
+  alioss:
+    endpoint: 
+    bucket-name: 
+    access-key-id: 
+    access-key-secret: 
+  redis:
+    host: 
+    port: 
+    database: 
